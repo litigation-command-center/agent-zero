@@ -1,0 +1,13 @@
+{
+  "name": "Agent Zero Environment",
+  "image": "://microsoft.com",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "codespaces": {
+      "openPorts": [50001]
+    }
+  },
+  "postCreateCommand": "pip install -r requirements.txt && playwright install chromium"
+}
