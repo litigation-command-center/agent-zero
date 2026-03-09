@@ -26,14 +26,16 @@ RUN echo "cache buster $CACHE_DATE" && bash /ins/install_A02.sh $BRANCH
 # post installation steps
 RUN bash /ins/post_install.sh $BRANCH
 
-# Update the port in the run script to 8080 for Cloud Run
-RUN sed -i 's/--port=80/--port=8080/g' /exe/run_A0.sh
-
 # Make scripts executable
 RUN chmod +x /exe/initialize.sh /exe/run_A0.sh /exe/run_searxng.sh /exe/run_tunnel_api.sh
 
-# Expose port 8080 for Cloud Run
+# List files for debugging
+RUN ls -la /exe
+RUN ls -la /a0
+
+# Expose port 8080. Render will override this with the PORT env var.
 EXPOSE 8080
 
-# Start the application
-CMD ["/exe/run_A0.sh"]
+# Keep the container running for debugging.
+# We will run the start command manually from the Render shell.
+CMD ["sleep", "3600"]
